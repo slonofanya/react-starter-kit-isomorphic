@@ -118,10 +118,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _historyLibCreateBrowserHistory = require('history/lib/createBrowserHistory');
-
-var _historyLibCreateBrowserHistory2 = _interopRequireDefault(_historyLibCreateBrowserHistory);
-
 var _componentsMain = require("./components/Main");
 
 var _componentsMain2 = _interopRequireDefault(_componentsMain);
@@ -130,9 +126,13 @@ var _componentsAbout = require("./components/About");
 
 var _componentsAbout2 = _interopRequireDefault(_componentsAbout);
 
+var createBrowserHistory = typeof document == 'object' ? require('history/lib/createBrowserHistory') : function () {
+  return {};
+};
+
 exports['default'] = _react2['default'].createElement(
   _reactRouter.Router,
-  { history: (0, _historyLibCreateBrowserHistory2['default'])() },
+  { history: createBrowserHistory() },
   _react2['default'].createElement(_reactRouter.Route, { name: 'root', path: '/', component: _componentsMain2['default'] }),
   _react2['default'].createElement(_reactRouter.Route, { name: 'about', path: 'about', component: _componentsAbout2['default'] })
 );

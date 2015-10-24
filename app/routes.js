@@ -1,6 +1,10 @@
 import React from 'react'
 import { Router, Route } from 'react-router'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
+
+var createBrowserHistory = typeof document == 'object'
+    ? require('history/lib/createBrowserHistory')
+    : function () {return {}}
+  ;
 
 import Main from "./components/Main"
 import About from "./components/About"
