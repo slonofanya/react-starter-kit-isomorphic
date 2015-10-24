@@ -11,10 +11,19 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var concat = require('gulp-concat');
+var gutil = require('gulp-util');
 var del = require('del');
 var path = require('path');
 var runSequence = require('run-sequence');
 var webpack = require('webpack');
+var browserify = require('browserify');
+var babelify = require("babelify");
+var watchify = require("watchify");
+var sourcemaps = require('gulp-sourcemaps');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var lodash = require("lodash");
+
 var argv = require('minimist')(process.argv.slice(2));
 
 var RELEASE = !!argv.release;
@@ -42,17 +51,35 @@ gulp.task('clean', del.bind(
   null, ['dist/*'], {dot: true}
 ));
 
-gulp.task('react:concat', ['bundle'], function () {
-  return gulp.src([
-    //'node_modules/requirejs/require.js',
-    'dist/public/js/bundle.js'
-  ])
-    .pipe(concat('bundle.js'))
-    .pipe(gulp.dest('dist/public/js/'));
-});
+var bundle_browser = watchify(browserify(lodash.extend({},
+  watchify.args,
+  {
+    entries: ['./app/browser.js'],
+    debug: true
+  }
+)));
+
+bundle_browser.transform(babelify);
+bundle_browser.on('update', bundleBrowser);
+bundle_browser.on('log', gutil.log);
+
+function bundleBrowser() {
+  return bundle_browser.bundle()
+    // log errors if they happen
+    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+    .pipe(source('bundle.js'))
+    // optional, remove if you don't need to buffer file contents
+    .pipe(buffer())
+    // optional, remove if you dont want sourcemaps
+    .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
+    // Add transformation tasks to the pipeline here.
+    .pipe(sourcemaps.write('./')) // writes .map file
+    .pipe(gulp.dest('./dist/public/js'));
+}
+gulp.task('bundle:browser', bundleBrowser);
 
 // Bundle
-gulp.task('bundle', function (cb) {
+gulp.task('bundle:serve', function (cb) {
   var started = false;
   var config = require('./webpack.config.js');
   var bundler = webpack(config);
@@ -81,7 +108,7 @@ gulp.task('bundle', function (cb) {
 
 // Build the app from source code
 gulp.task('build', ['clean'], function (cb) {
-  runSequence(['bundle', 'react:concat'], cb);
+  runSequence(['bundle:serve', 'bundle:browser'], cb);
 });
 
 // Build and start watching for modifications

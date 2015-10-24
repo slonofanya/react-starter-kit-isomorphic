@@ -26,18 +26,18 @@ var
       ]
     },
 
-    resolve: {
-      modulesDirectories: ['node_modules'],
-      alias: {},
-      extensions: ['', '.jsx', '.js']
-    },
+    //resolve: {
+    //  modulesDirectories: ['node_modules'],
+    //  alias: {},
+    //  extensions: ['', '.jsx', '.js']
+    //},
     externals: (function () {
       var nodeModules = {};
       fs.readdirSync('node_modules')
-        .filter(function(x) {
+        .filter(function (x) {
           return ['.bin'].indexOf(x) === -1;
         })
-        .forEach(function(mod) {
+        .forEach(function (mod) {
           nodeModules[mod] = 'commonjs ' + mod;
         });
 
@@ -45,18 +45,21 @@ var
     })()
   },
 
-  browserConfig = _.merge({}, commonConfig, {
-    entry: {
-      javascript: './browser.js',
-      html: './index.html'
-    },
-    output: {
-      filename: './public/js/bundle.js'
-    }
-  }),
+  //browserConfig = _.merge({}, commonConfig, {
+  //  entry: {
+  //    javascript: './browser.js',
+  //    html: './index.html'
+  //  },
+  //  output: {
+  //    filename: './public/js/bundle.js'
+  //  }
+  //}),
 
   serverConfig = _.merge({}, commonConfig, {
-    entry: './serve.js',
+    entry: {
+      javascript: './serve.js',
+      html: './index.html'
+    },
     output: {
       filename: './serve.js'
     },
@@ -64,4 +67,5 @@ var
   })
   ;
 
-module.exports = [browserConfig, serverConfig];
+//module.exports = [browserConfig, serverConfig];
+module.exports = [serverConfig];

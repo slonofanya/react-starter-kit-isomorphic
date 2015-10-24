@@ -18689,49 +18689,31 @@
 
 	var _reactRouter = __webpack_require__(152);
 
-	var _componentsMain = __webpack_require__(154);
+	var _history = __webpack_require__(154);
+
+	var _history2 = _interopRequireDefault(_history);
+
+	var _componentsMain = __webpack_require__(155);
 
 	var _componentsMain2 = _interopRequireDefault(_componentsMain);
 
-	var _componentsAbout = __webpack_require__(156);
+	var _componentsAbout = __webpack_require__(157);
 
 	var _componentsAbout2 = _interopRequireDefault(_componentsAbout);
 
 	exports['default'] = _react2['default'].createElement(
-	  _reactRouter.Route,
-	  { name: 'root', path: '/', component: _componentsMain2['default'] },
-	  _react2['default'].createElement(_reactRouter.Route, { name: 'root', path: 'about', component: _componentsAbout2['default'] })
+	  _reactRouter.Router,
+	  { history: 'history' },
+	  _react2['default'].createElement(_reactRouter.Route, { name: 'root', path: '/', component: _componentsMain2['default'] }),
+	  _react2['default'].createElement(_reactRouter.Route, { name: 'about', path: 'about', component: _componentsAbout2['default'] })
 	);
 	module.exports = exports['default'];
 
 /***/ },
 /* 154 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Message = __webpack_require__(155);
-
-	var _Message2 = _interopRequireDefault(_Message);
-
-	exports["default"] = _react2["default"].createClass({
-	  displayName: "Main",
-
-	  render: function render() {
-	    return _react2["default"].createElement(_Message2["default"], { name: "World" });
-	  }
-	});
-	module.exports = exports["default"];
+	module.exports = require("history");
 
 /***/ },
 /* 155 */
@@ -18749,26 +18731,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(152);
+	var _Message = __webpack_require__(156);
+
+	var _Message2 = _interopRequireDefault(_Message);
 
 	exports["default"] = _react2["default"].createClass({
-	  displayName: "Message",
+	  displayName: "Main",
 
 	  render: function render() {
-	    return _react2["default"].createElement(
-	      "div",
-	      null,
-	      "Hello, ",
-	      this.props.name,
-	      " ",
-	      typeof this.props.name,
-	      "!",
-	      _react2["default"].createElement(
-	        _reactRouter.Link,
-	        { to: "/about" },
-	        "Go to about"
-	      )
-	    );
+	    return _react2["default"].createElement(_Message2["default"], { name: "World" });
 	  }
 	});
 	module.exports = exports["default"];
@@ -18777,13 +18748,13 @@
 /* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	var _react = __webpack_require__(3);
 
@@ -18791,25 +18762,67 @@
 
 	var _reactRouter = __webpack_require__(152);
 
-	exports["default"] = _react2["default"].createClass({
-	  displayName: "About",
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'Message',
 
 	  render: function render() {
-	    return _react2["default"].createElement(
-	      "div",
+	    console.log('render:Message');
+	    return _react2['default'].createElement(
+	      'div',
 	      null,
-	      "About, ",
+	      'Hello, ',
 	      this.props.name,
-	      "!",
-	      _react2["default"].createElement(
+	      ' ',
+	      typeof this.props.name,
+	      '!',
+	      _react2['default'].createElement(
 	        _reactRouter.Link,
-	        { to: "/" },
-	        "Back to home"
+	        { to: '/about' },
+	        'Go to about'
 	      )
 	    );
 	  }
 	});
-	module.exports = exports["default"];
+	module.exports = exports['default'];
+
+/***/ },
+/* 157 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(152);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'About',
+
+	  render: function render() {
+	    console.log('render:About');
+	    return _react2['default'].createElement(
+	      'div',
+	      null,
+	      'About, ',
+	      this.props.name,
+	      '!',
+	      _react2['default'].createElement(
+	        _reactRouter.IndexLink,
+	        { to: '/' },
+	        'Back to Home'
+	      )
+	    );
+	  }
+	});
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

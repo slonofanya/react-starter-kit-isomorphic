@@ -9,13 +9,15 @@
     "lodash": "^3.10.1",
     "path": "^0.12.7",
     "react": "^0.14.",
-    "react-dom": "^0.14.0",
-    "react-router": "^0.14.0"
+    "react-dom": "^0.14.",
+    "react-router": "^1."
   },
   "devDependencies": {
     "babel-core": "^5.8.25",
     "babel-loader": "^5.3.2",
+    "babelify": "^6.4.0",
     "browser-sync": "^2.9.11",
+    "browserify": "^11.2.0",
     "connect-livereload": "^0.5.3",
     "del": "^2.0.2",
     "file-loader": "^0.8.4",
@@ -28,6 +30,7 @@
     "gulp-load-plugins": "^1.0.0",
     "gulp-plumber": "^1.0.1",
     "gulp-size": "^2.0.0",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
     "gulp-webpack-build": "^0.13.1",
     "minimist": "^1.2.0",
@@ -35,6 +38,9 @@
     "react-router": "^1.0.0-rc3",
     "run-sequence": "^1.1.4",
     "transform-loader": "^0.2.3",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0",
     "webpack": "^1.12.2",
     "webpack-config": "^0.8.1"
   },

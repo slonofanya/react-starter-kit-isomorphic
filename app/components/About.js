@@ -1,12 +1,13 @@
 import React from "react";
-import { Link } from 'react-router'
+import { IndexLink } from 'react-router'
 
 export default React.createClass({
   render: function() {
+    console.log('render:About');
     return (
       <div>
         About, {this.props.name}!
-        <Link to="/">Back to home</Link>
+        <IndexLink to="/">Back to Home</IndexLink>
       </div>
     );
   }
